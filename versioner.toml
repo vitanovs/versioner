@@ -32,4 +32,7 @@ version = 1
     ## names that must be executed in the order of
     ## their appearance.
     sequence = [
+        "base.sql",
+        "roles.sql",
+        "user.sql"
     ]
