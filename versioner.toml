@@ -1,0 +1,35 @@
+##
+## This is a sample Database schema definition configuration.
+##
+
+##
+## Version defines the configuration version.
+##
+version = 1
+
+##
+## Postgres defines the settings used for
+## connecting to a remote PostgreSQL endpoint.
+##
+[postgres]
+    host = "127.0.0.1"
+    port = 5432
+    database = "demo"
+    username = "admin"
+    password = "admin"
+    ssl_mode = "disable"
+
+##
+## Schema defines the settings used for locating
+## the migration files that form the database
+## schema desired state.
+##
+[schema]
+    ## Directory defines the directory path to the
+    ## SQL migration files.
+    directory = "/"
+    ## Sequence defines the list of migration files
+    ## names that must be executed in the order of
+    ## their appearance.
+    sequence = [
+    ]
