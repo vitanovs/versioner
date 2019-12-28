@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/hall-arranger/versioner/config"
 	"github.com/jmoiron/sqlx"
 	"github.com/jmoiron/sqlx/reflectx"
 	_ "github.com/lib/pq" // Postgres driver dependency.
@@ -19,22 +18,32 @@ const (
 	databaseDriver = "postgres"
 )
 
+// ClientConfig defines the Client configuration.
+type ClientConfig struct {
+	Endpoint string
+	Port     int
+	Database string
+	Username string
+	Password string
+	SslMode  string
+}
+
 // Client defines a database client.
 type Client struct {
-	config   *config.Config
+	config   *ClientConfig
 	database *sqlx.DB
 }
 
 // NewClient returns new storage client
 // from the provided parameters.
-func NewClient(ctx context.Context, config *config.Config) (*Client, error) {
+func NewClient(ctx context.Context, config *ClientConfig) (*Client, error) {
 	connStr := fmt.Sprintf("host=%s port=%d dbname=%s user=%s password=%s sslmode=%s",
-		config.Postgres.Host,
-		config.Postgres.Port,
-		config.Postgres.Database,
-		config.Postgres.Username,
-		config.Postgres.Password,
-		config.Postgres.SslMode,
+		config.Endpoint,
+		config.Port,
+		config.Database,
+		config.Username,
+		config.Password,
+		config.SslMode,
 	)
 
 	db, err := sqlx.ConnectContext(ctx, databaseDriver, connStr)
@@ -64,9 +73,9 @@ func (c *Client) Close() error {
 // String implements fmt.Stringer interface.
 func (c *Client) String() string {
 	databaseInfo := fmt.Sprintf("host=%s port=%d dbname=%s",
-		c.config.Postgres.Host,
-		c.config.Postgres.Port,
-		c.config.Postgres.Database,
+		c.config.Endpoint,
+		c.config.Port,
+		c.config.Database,
 	)
 
 	return databaseInfo

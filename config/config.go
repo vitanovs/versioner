@@ -16,8 +16,6 @@ const (
 type Config struct {
 	// Version defines the configuration version.
 	Version int `toml:"version"`
-	// Postgres defines the PostgreSQL database configuration.
-	Postgres PostgresConfig `toml:"postgres"`
 	// Schema defines the schema resources configuration.
 	Schema SchemaConfig `toml:"schema"`
 }
@@ -32,10 +30,6 @@ func LoadConfig(path string) (*Config, error) {
 
 	if config.Version != supportedConfigVersion {
 		return nil, fmt.Errorf("unsupported configuration version %d", config.Version)
-	}
-
-	if err = config.Postgres.validate(); err != nil {
-		return nil, fmt.Errorf("invalid Postgres configuration: %s", err)
 	}
 
 	if err = config.Schema.validate(); err != nil {
