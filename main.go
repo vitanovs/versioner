@@ -16,8 +16,33 @@ func main() {
 
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
-			Name:     "config, c",
-			Usage:    "path to configuration file",
+			Name:     "endpoint, e",
+			Usage:    "remote endpoint address",
+			Required: true,
+		},
+		cli.Int64Flag{
+			Name:     "port, p",
+			Usage:    "remote endpoint port",
+			Required: true,
+		},
+		cli.StringFlag{
+			Name:     "database, d",
+			Usage:    "remote endpoint database",
+			Required: true,
+		},
+		cli.StringFlag{
+			Name:     "username",
+			Usage:    "remote endpoint username",
+			Required: true,
+		},
+		cli.StringFlag{
+			Name:     "password",
+			Usage:    "remote endpoint password",
+			Required: true,
+		},
+		cli.StringFlag{
+			Name:     "sslmode, s",
+			Usage:    "remote endpoint ssl mode",
 			Required: true,
 		},
 	}
