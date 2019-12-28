@@ -49,6 +49,7 @@ func main() {
 
 	app.Commands = []cli.Command{
 		cmd.NewMigrationCommand(),
+		cmd.NewDatabaseCommand(),
 	}
 
 	app.Run(os.Args)

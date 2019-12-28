@@ -60,6 +60,40 @@ func NewClient(ctx context.Context, config *ClientConfig) (*Client, error) {
 	return &client, nil
 }
 
+// DropDatabase drops database mathing the provided parameters.
+func (c *Client) DropDatabase(ctx context.Context, name string) (*sql.Result, error) {
+
+	// Using fmt.Sprintf to create the drop database statement
+	// as currently, the placeholders are not supported.
+	//
+	// See https://github.com/lib/pq/issues/694 for more details.
+	query := fmt.Sprintf("DROP DATABASE %s ;", name)
+
+	result, err := c.database.ExecContext(ctx, query)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to execute drop query: %s", err)
+	}
+
+	return &result, nil
+}
+
+// CreateDatabase creates new database with the provided parameters.
+func (c *Client) CreateDatabase(ctx context.Context, name string) (*sql.Result, error) {
+
+	// Using fmt.Sprintf to create the create database statement
+	// as currently, the placeholders are not supported.
+	//
+	// See https://github.com/lib/pq/issues/694 for more details.
+	query := fmt.Sprintf("CREATE DATABASE %s ;", name)
+
+	result, err := c.database.ExecContext(ctx, query)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to execute create query: %s", err)
+	}
+
+	return &result, nil
+}
+
 // Execute executes query on a remote database endpoint.
 func (c *Client) Execute(ctx context.Context, query string) (sql.Result, error) {
 	return c.database.ExecContext(ctx, query)
