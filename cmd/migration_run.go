@@ -43,8 +43,14 @@ func runMigrationRunCommand(ctx *cli.Context) error {
 
 	runContext := context.Background()
 
+	clientConfig, err := loadClientConfig(ctx)
+	if err != nil {
+		msg := fmt.Sprintf("Failed to client configuration: %s", err)
+		return cli.NewExitError(msg, 1)
+	}
+
 	log.Info("Initializing database client...")
-	client, err := psql.NewClient(runContext, configuration)
+	client, err := psql.NewClient(runContext, clientConfig)
 	if err != nil {
 		msg := fmt.Sprintf("Failed to initialize database client: %s", err)
 		return cli.NewExitError(msg, 1)
