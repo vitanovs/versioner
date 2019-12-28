@@ -8,18 +8,6 @@
 version = 1
 
 ##
-## Postgres defines the settings used for
-## connecting to a remote PostgreSQL endpoint.
-##
-[postgres]
-    host = "127.0.0.1"
-    port = 5432
-    database = "demo"
-    username = "admin"
-    password = "admin"
-    ssl_mode = "disable"
-
-##
 ## Schema defines the settings used for locating
 ## the migration files that form the database
 ## schema desired state.
