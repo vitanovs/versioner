@@ -1,11 +1,12 @@
 .DEFAULT_GOAL := build
 
-GO111MODULE ?= "on"
 BUILD_REVISOIN := $(shell git rev-list -1 HEAD)
 BUILD_DATE := $(shell date -u +"%Y-%m-%d")
 BUILD_TIME := $(shell date -u +"%H:%M:%S")
 BUILD_USER := $(shell whoami)
 BUILD_MACHINE := $(shell hostname)
+release: export CGO_ENABLED = 0
+release: export GO111MODULE = on
 
 PACKAGE := github.com/hall-arranger/versioner
 VERSION_PACKAGE := ${PACKAGE}/version
@@ -22,6 +23,12 @@ LDFLAGS = -ldflags \
 
 build:
 	go build ${LDFLAGS} -o ./bin/${BINARY_NAME} ${PACKAGE}
+
+release: build
+
+docker:
+	docker build -t ${BINARY_NAME} .
+	docker image prune --filter label=stage=versioner-builder-env -f
 
 clean:
 	rm -f ./bin/${BINARY_NAME}

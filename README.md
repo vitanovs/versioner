@@ -6,6 +6,8 @@ The Hall Arranger Schema versioning tool.
 
 * [Go](https://golang.org/) v1.13.0 at least.
 
+* [Docker](https://www.docker.com) v19.03.4 at least.
+
 ## Installation
 
 In order to install `versioner`, follow these steps after
@@ -36,6 +38,29 @@ To print the menus of the sub commands use:
 ```sh
 versioner [options] <command> [options] <sub-command> --help
 ```
+
+## Docker
+
+The `versioner` tool can also be generated as a Docker image. To build image use
+
+```sh
+make docker
+```
+
+### Docker Requirements
+
+* [Golang Docker Image](https://hub.docker.com/_/golang) v1.13.0 at least.
+
+```sh
+docker pull golang:1.13.0
+```
+
+* [Busybox Docker Image](https://hub.docker.com/_/busybox) v1.31.1 at least.
+
+```sh
+docker pull busybox:1.31.1
+```
+
 
 ## Contact
 
