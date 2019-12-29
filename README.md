@@ -47,6 +47,14 @@ The `versioner` tool can also be generated as a Docker image. To build image use
 make docker
 ```
 
+### Docker image usage
+
+The following is an example of how to use the `versioner` Docker image to run its commands
+
+```sh
+docker run --rm versioner --help
+```
+
 ### Docker Requirements
 
 * [Golang Docker Image](https://hub.docker.com/_/golang) v1.13.0 at least.
