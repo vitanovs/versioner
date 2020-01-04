@@ -47,13 +47,33 @@ The `versioner` tool can also be generated as a Docker image. To build image use
 make docker
 ```
 
-### Docker image usage
+### Docker Image Usage
 
 The following is an example of how to use the `versioner` Docker image to run its commands
 
 ```sh
 docker run --rm versioner --help
 ```
+
+Use the following template to create new database:
+
+```sh
+docker run --rm versioner \
+--endpoint <remote> \
+--port <remote-port> \
+--database <database> \
+--username <username-credential> \
+--password <password-credential> \
+--sslmode <postgres-ssl-mode> \
+database create \
+--name <database-name>
+```
+
+To remove already existing database, replace `create` with `drop`.
+In case your Postgres server runs on localhost and your OS of choice is macOS or Windows, replace `<remote>` with:
+
+* `docker.for.mac.localhost` for macOS
+* `docker.for.win.localhost` for Windows
 
 ### Docker Requirements
 
