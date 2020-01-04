@@ -2,6 +2,9 @@
 
 The Hall Arranger Schema versioning tool.
 
+[![Documentation](https://godoc.org/github.com/hall-arranger/versioner?status.svg)](http://godoc.org/github.com/hall-arranger/versioner)
+[![Go Report Card](https://goreportcard.com/badge/github.com/hall-arranger/versioner)](https://goreportcard.com/report/github.com/hall-arranger/versioner)
+
 ## Requirements
 
 * [Go](https://golang.org/) v1.13.0 at least.
