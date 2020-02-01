@@ -15,7 +15,7 @@ version = 1
 [schema]
     ## Directory defines the directory path to the
     ## SQL migration files.
-    directory = "/"
+    directory = "./sql"
     ## Sequence defines the list of migration files
     ## names that must be executed in the order of
     ## their appearance.
