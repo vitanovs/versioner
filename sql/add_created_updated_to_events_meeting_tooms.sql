@@ -1,0 +1,6 @@
+BEGIN TRANSACTION;
+
+ALTER TABLE core.events_and_meeting_rooms ADD COLUMN created TIMESTAMP WITH TIME ZONE NOT NULL;
+ALTER TABLE core.events_and_meeting_rooms ADD COLUMN updated TIMESTAMP WITH TIME ZONE NOT NULL;
+
+COMMIT;

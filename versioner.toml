@@ -31,4 +31,5 @@ version = 1
         "occurrence_type.sql",
         "occurrence.sql",
         "events_and_meeting_rooms.sql",
+        "add_created_updated_to_events_meeting_tooms.sql",
     ]
