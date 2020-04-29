@@ -7,9 +7,9 @@ import (
 	"os"
 	"strings"
 
-	psql "github.com/hall-arranger/versioner/api/postgresql"
-	"github.com/hall-arranger/versioner/config"
-	"github.com/hall-arranger/versioner/log"
+	psql "github.com/vitanovs/versioner/api/postgresql"
+	"github.com/vitanovs/versioner/config"
+	"github.com/vitanovs/versioner/log"
 	"github.com/urfave/cli"
 )
 

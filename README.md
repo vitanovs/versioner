@@ -2,8 +2,8 @@
 
 The Hall Arranger Schema versioning tool.
 
-[![Documentation](https://godoc.org/github.com/hall-arranger/versioner?status.svg)](http://godoc.org/github.com/hall-arranger/versioner)
-[![Go Report Card](https://goreportcard.com/badge/github.com/hall-arranger/versioner)](https://goreportcard.com/report/github.com/hall-arranger/versioner)
+[![Documentation](https://godoc.org/github.com/vitanovs/versioner?status.svg)](http://godoc.org/github.com/vitanovs/versioner)
+[![Go Report Card](https://goreportcard.com/badge/github.com/vitanovs/versioner)](https://goreportcard.com/report/github.com/vitanovs/versioner)
 
 ## Requirements
 
@@ -80,13 +80,13 @@ In case your Postgres server runs on localhost and your OS of choice is macOS or
 
 ### Docker Requirements
 
-* [Golang Docker Image](https://hub.docker.com/_/golang) v1.13.0 at least.
+* [Go Docker Image](https://hub.docker.com/_/golang) v1.13.0 at least.
 
 ```sh
 docker pull golang:1.13.0
 ```
 
-* [Busybox Docker Image](https://hub.docker.com/_/busybox) v1.31.1 at least.
+* [BusyBox Docker Image](https://hub.docker.com/_/busybox) v1.31.1 at least.
 
 ```sh
 docker pull busybox:1.31.1

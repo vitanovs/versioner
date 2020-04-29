@@ -1,4 +1,4 @@
-module github.com/hall-arranger/versioner
+module github.com/vitanovs/versioner
 
 go 1.13
 

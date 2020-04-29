@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/hall-arranger/versioner/api/postgresql"
+	"github.com/vitanovs/versioner/api/postgresql"
 	"github.com/urfave/cli"
 )
 
