@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/hall-arranger/versioner/cmd"
-	"github.com/hall-arranger/versioner/version"
+	"github.com/vitanovs/versioner/cmd"
+	"github.com/vitanovs/versioner/version"
 	"github.com/urfave/cli"
 )
 

@@ -8,7 +8,7 @@ BUILD_MACHINE := $(shell hostname)
 release: export CGO_ENABLED = 0
 release: export GO111MODULE = on
 
-PACKAGE := github.com/hall-arranger/versioner
+PACKAGE := github.com/vitanovs/versioner
 VERSION_PACKAGE := ${PACKAGE}/version
 
 BINARY_NAME := versioner
