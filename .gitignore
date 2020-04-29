@@ -1,2 +1,5 @@
+# VS Code project specific settings
 .vscode/
+
+# Binaries directory
 bin/
