@@ -15,20 +15,12 @@ version = 1
 [schema]
     ## Directory defines the directory path to the
     ## SQL migration files.
-    directory = "./sql"
+    directory = "./migrations"
     ## Sequence defines the list of migration files
     ## names that must be executed in the order of
     ## their appearance.
     sequence = [
-        "base.sql",
-        "roles.sql",
-        "user.sql",
-        "add_role_primary_key.sql",
-        "add_user_to_role_relation.sql",
-        "meeting_room_type.sql",
-        "meeting_room.sql",
-        "event.sql",
-        "occurrence_type.sql",
-        "occurrence.sql",
-        "events_and_meeting_rooms.sql",
+        "migration_1.sql",
+        "migration_2.sql",
+        "migration_3.sql",
     ]
