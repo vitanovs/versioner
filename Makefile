@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := build
 
-BUILD_REVISOIN := $(shell git rev-list -1 HEAD)
+BUILD_REVISOIN := $(shell git describe)
 BUILD_DATE := $(shell date -u +"%Y-%m-%d")
 BUILD_TIME := $(shell date -u +"%H:%M:%S")
 BUILD_USER := $(shell whoami)
@@ -22,7 +22,7 @@ LDFLAGS = -ldflags \
             -X ${VERSION_PACKAGE}.BuildMachine=${BUILD_MACHINE}"
 
 build:
-	go build ${LDFLAGS} -o ./bin/${BINARY_NAME} ${PACKAGE}
+	go build -mod vendor ${LDFLAGS} -o ./bin/${BINARY_NAME} ${PACKAGE}
 
 release: build
 
