@@ -1,6 +1,6 @@
 # Versioner
 
-The Hall Arranger Schema versioning tool.
+PostgreSQL schema versioning tool.
 
 [![Documentation](https://godoc.org/github.com/vitanovs/versioner?status.svg)](http://godoc.org/github.com/vitanovs/versioner)
 [![Go Report Card](https://goreportcard.com/badge/github.com/vitanovs/versioner)](https://goreportcard.com/report/github.com/vitanovs/versioner)
@@ -94,8 +94,8 @@ docker pull busybox:1.31.1
 
 ## Contact
 
-Direct questions or issue to hall.arranger@gmail.com or open GitHub issue right away.
+Direct questions or issue to stoyan.a.vitanov@gmail.com or open GitHub issue right away.
 
 ## License
 
-Copyright © 2020 Hall Arranger
+Copyright © 2020 Versioner
