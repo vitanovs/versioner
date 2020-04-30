@@ -2,7 +2,7 @@
 
 PostgreSQL schema versioning tool.
 
-[![Documentation](https://godoc.org/github.com/vitanovs/versioner?status.svg)](http://godoc.org/github.com/vitanovs/versioner)
+[![Documentation](https://godoc.org/github.com/vitanovs/versioner?status.svg)](https://pkg.go.dev/github.com/vitanovs/versioner?tab=overview)
 [![Go Report Card](https://goreportcard.com/badge/github.com/vitanovs/versioner)](https://goreportcard.com/report/github.com/vitanovs/versioner)
 
 ## Requirements
