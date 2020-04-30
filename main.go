@@ -2,11 +2,22 @@ package main
 
 import (
 	"os"
+	"time"
 
+	log "github.com/sirupsen/logrus"
+	"github.com/urfave/cli"
 	"github.com/vitanovs/versioner/cmd"
 	"github.com/vitanovs/versioner/version"
-	"github.com/urfave/cli"
 )
+
+func init() {
+	log.SetFormatter(&log.TextFormatter{
+		QuoteEmptyFields:       true,
+		FullTimestamp:          true,
+		DisableLevelTruncation: true,
+		TimestampFormat:        time.RFC3339,
+	})
+}
 
 func main() {
 	app := cli.NewApp()
