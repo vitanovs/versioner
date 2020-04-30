@@ -3,11 +3,11 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/vitanovs/versioner/api/postgresql"
 	"github.com/urfave/cli"
+	"github.com/vitanovs/versioner/client"
 )
 
-func loadClientConfig(ctx *cli.Context) (*postgresql.ClientConfig, error) {
+func loadClientConfig(ctx *cli.Context) (*client.ClientConfig, error) {
 	cmdName := ctx.Command.FullName()
 
 	endpoint := ctx.GlobalString("endpoint")
@@ -40,7 +40,7 @@ func loadClientConfig(ctx *cli.Context) (*postgresql.ClientConfig, error) {
 		return nil, fmt.Errorf("No SSL mode specified. See '%s --help'", cmdName)
 	}
 
-	config := postgresql.ClientConfig{
+	config := client.ClientConfig{
 		Endpoint: endpoint,
 		Port:     port,
 		Database: database,

@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	psql "github.com/vitanovs/versioner/api/postgresql"
-	"github.com/vitanovs/versioner/log"
 	"github.com/urfave/cli"
+	"github.com/vitanovs/versioner/client"
+	"github.com/vitanovs/versioner/log"
 )
 
 // NewDatabaseDropCommand returns a command
@@ -44,20 +44,20 @@ func runDatabaseDropCommand(ctx *cli.Context) error {
 	}
 
 	log.Info("Initializing database client...")
-	client, err := psql.NewClient(runContext, clientConfig)
+	psqlClient, err := client.NewClient(runContext, clientConfig)
 	if err != nil {
 		msg := fmt.Sprintf("Failed to initialize database client: %s", err)
 		return cli.NewExitError(msg, 1)
 	}
 
-	if _, err := client.DropDatabase(runContext, name); err != nil {
+	if _, err := psqlClient.DropDatabase(runContext, name); err != nil {
 		msg := fmt.Sprintf("Failed to drop database '%s': %s", name, err)
 		return cli.NewExitError(msg, 1)
 	}
 	log.Info("Database '%s' was dropped", name)
 
 	log.Info("Closing database client...")
-	if err := client.Close(); err != nil {
+	if err := psqlClient.Close(); err != nil {
 		msg := fmt.Sprintf("Failed to close database client connection: %s", err)
 		return cli.NewExitError(msg, 1)
 	}
