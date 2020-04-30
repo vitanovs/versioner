@@ -5,7 +5,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
-	"github.com/vitanovs/versioner/api/postgresql"
+	"github.com/vitanovs/versioner/client"
 )
 
 const (
@@ -92,14 +92,14 @@ func runMigrationInitCommand(ctx *cli.Context) error {
 	defer cancel()
 
 	log.Debug("Initializing new PostgreSQL client...")
-	client, err := postgresql.NewClient(cmdCtx, config)
+	psqlClient, err := client.NewClient(cmdCtx, config)
 	if err != nil {
 		log.Error(err)
 		return cli.NewExitError(err, 1)
 	}
 
 	log.Debug("Applying utility schema...")
-	_, err = client.Execute(cmdCtx, versionerSchema)
+	_, err = psqlClient.Execute(cmdCtx, versionerSchema)
 	if err != nil {
 		log.Error(err)
 		return cli.NewExitError(err, 1)
@@ -107,7 +107,7 @@ func runMigrationInitCommand(ctx *cli.Context) error {
 	log.Info("`versioner` utility schema applied successfully")
 
 	log.Debug("Closing PostgreSQL client...")
-	if err := client.Close(); err != nil {
+	if err := psqlClient.Close(); err != nil {
 		log.Error(err)
 		return cli.NewExitError(err, 1)
 	}

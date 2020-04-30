@@ -8,7 +8,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
-	"github.com/vitanovs/versioner/api/postgresql"
+	"github.com/vitanovs/versioner/client"
 	"github.com/vitanovs/versioner/config"
 )
 
@@ -66,19 +66,19 @@ func runMigrationApplyCommand(ctx *cli.Context) error {
 	defer cancel()
 
 	log.Debug("Initializing new PostgreSQL client...")
-	client, err := postgresql.NewClient(cmdCtx, clientConfig)
+	psqlClient, err := client.NewClient(cmdCtx, clientConfig)
 	if err != nil {
 		log.Error(err)
 		return cli.NewExitError(err, 1)
 	}
 
-	if err := applyMigrations(cmdCtx, client, configuration, clientConfig.Username); err != nil {
+	if err := applyMigrations(cmdCtx, psqlClient, configuration, clientConfig.Username); err != nil {
 		log.Error(err)
 		return cli.NewExitError(err, 1)
 	}
 
 	log.Debug("Closing PostgreSQL client...")
-	if err := client.Close(); err != nil {
+	if err := psqlClient.Close(); err != nil {
 		log.Error(err)
 		return cli.NewExitError(err, 1)
 	}
@@ -86,9 +86,9 @@ func runMigrationApplyCommand(ctx *cli.Context) error {
 	return nil
 }
 
-func applyMigrations(ctx context.Context, client *postgresql.Client, configuration *config.Config, user string) error {
+func applyMigrations(ctx context.Context, psqlClient *client.Client, configuration *config.Config, user string) error {
 	log.Debug("Retrieving last applied migration...")
-	lastMigration, err := client.LastMigration(ctx)
+	lastMigration, err := psqlClient.LastMigration(ctx)
 	if err != nil {
 		return fmt.Errorf("failed to retrieve last applied migration: %s", err)
 	}
@@ -129,19 +129,19 @@ func applyMigrations(ctx context.Context, client *postgresql.Client, configurati
 		}
 
 		log.WithFields(logMetadata).Debugf("Executing migration '%s' content", migration)
-		_, err = client.Execute(ctx, string(bytes))
+		_, err = psqlClient.Execute(ctx, string(bytes))
 		if err != nil {
 			return fmt.Errorf("failed to apply migration '%s': %s", migration, err)
 		}
 
-		newMigration := postgresql.Migration{
+		newMigration := client.Migration{
 			Name:      migration,
 			Path:      path,
 			AppliedBy: user,
 		}
 
 		log.WithFields(logMetadata).Debugf("Registering migration '%s' as applied", migration)
-		err = client.RegisterMigration(ctx, &newMigration)
+		err = psqlClient.RegisterMigration(ctx, &newMigration)
 		if err != nil {
 			return fmt.Errorf("failed to register migration '%s': %s", migration, err)
 		}
