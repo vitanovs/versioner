@@ -1,48 +1,74 @@
 package postgresql
 
 import (
+	"context"
 	"fmt"
 )
 
-// DatabaseVersion retrieves the current database version.
-func (c *Client) DatabaseVersion() (string, error) {
-	exists, err := c.functionExists("core", "schema_version")
-	if err != nil {
-		return "", fmt.Errorf("failed determining if version function exists: %s", err)
-	}
-
-	if !exists {
-		// No migrations have been applied, yet.
-		return "", nil
-	}
-
-	query := "SELECT core.schema_version() AS version;"
-	var version []string
-	err = c.database.Select(&version, query)
-	if err != nil {
-		return "", fmt.Errorf("failed selecting version function: %s", err)
-	}
-
-	return version[0], nil
-}
-
-func (c *Client) functionExists(schemaName string, funcName string) (bool, error) {
-	query := `
-	SELECT
-		COUNT(*) = 1
-	FROM
-		information_schema.routines
-	WHERE
-		routine_type = 'FUNCTION' AND
-		specific_schema = $1 AND
-		routine_name = $2 ;
+const (
+	queryLastMigration = `
+		SELECT
+			*
+		FROM
+			versioner.migration
+		ORDER BY created DESC
+		LIMIT 1;
 	`
 
-	var result []bool
-	err := c.database.Select(&result, query, schemaName, funcName)
+	queryRegisterMigration = `
+		INSERT INTO versioner.migration (
+			name,
+			path,
+			applied_by
+		) VALUES (
+			:name,
+			:path,
+			:applied_by
+		);
+	`
+)
+
+// LastMigration retrieves the last successfully applied migration name.
+func (c *Client) LastMigration(ctx context.Context) (*Migration, error) {
+	tx, err := c.database.Beginx()
 	if err != nil {
-		return false, err
+		return nil, fmt.Errorf("failed to being transaction: %s", err)
 	}
 
-	return result[0], nil
+	migrations := []Migration{}
+	err = tx.SelectContext(ctx, &migrations, queryLastMigration)
+	if err != nil {
+		return nil, fmt.Errorf("failed select result: %s", err)
+	}
+
+	if err = tx.Commit(); err != nil {
+		return nil, fmt.Errorf("failed to commit transaction: %s", err)
+	}
+
+	if len(migrations) == 0 {
+		return nil, nil
+	}
+
+	return &migrations[0], nil
+}
+
+// RegisterMigration registers migration as applied on a remote PostgreSQL endpoint.
+func (c *Client) RegisterMigration(ctx context.Context, migration *Migration) error {
+	tx, err := c.database.Beginx()
+	if err != nil {
+		return fmt.Errorf("failed to being transaction: %s", err)
+	}
+
+	if _, err = tx.NamedExecContext(ctx, queryRegisterMigration, migration); err != nil {
+		if errRowBack := tx.Rollback(); errRowBack != nil {
+			return fmt.Errorf("failed to rollback transaction: %s", errRowBack)
+		}
+		return fmt.Errorf("failed to execute insert query: %s", err)
+	}
+
+	if err = tx.Commit(); err != nil {
+		return fmt.Errorf("failed to commit transaction: %s", err)
+	}
+
+	return nil
 }
