@@ -22,38 +22,45 @@ func init() {
 func main() {
 	app := cli.NewApp()
 	app.Name = "Versioner"
-	app.Usage = "The Hall Arranger database schema versioning tool"
+	app.Usage = "PostgreSQL schema migrations versioning tool"
 	app.Version = version.BuildInfo
 
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:     "endpoint, e",
 			Usage:    "remote endpoint address",
+			EnvVar:   "VERSIONER_PSQL_ENDPOINT",
 			Required: true,
 		},
 		cli.Int64Flag{
 			Name:     "port, p",
 			Usage:    "remote endpoint port",
+			EnvVar:   "VERSIONER_PSQL_PORT",
+			Value:    5432,
 			Required: true,
 		},
 		cli.StringFlag{
 			Name:     "database, d",
 			Usage:    "remote endpoint database",
+			EnvVar:   "VERSIONER_PSQL_DATABASE",
 			Required: true,
 		},
 		cli.StringFlag{
 			Name:     "username",
 			Usage:    "remote endpoint username",
+			EnvVar:   "VERSIONER_PSQL_USERNAME",
 			Required: true,
 		},
 		cli.StringFlag{
 			Name:     "password",
 			Usage:    "remote endpoint password",
+			EnvVar:   "VERSIONER_PSQL_PASSWORD",
 			Required: true,
 		},
 		cli.StringFlag{
 			Name:     "sslmode, s",
 			Usage:    "remote endpoint ssl mode",
+			EnvVar:   "VERSIONER_PSQL_SSLMODE",
 			Required: true,
 		},
 	}
