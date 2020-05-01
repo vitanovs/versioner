@@ -1,9 +1,10 @@
 # Versioner
 
-[![Documentation](https://godoc.org/github.com/vitanovs/versioner?status.svg)](https://pkg.go.dev/github.com/vitanovs/versioner?tab=overview)
-[![Go Report Card](https://goreportcard.com/badge/github.com/vitanovs/versioner)](https://goreportcard.com/report/github.com/vitanovs/versioner)
+[![go-doc](https://godoc.org/github.com/vitanovs/versioner?status.svg)](https://pkg.go.dev/github.com/vitanovs/versioner?tab=overview)
+[![go-report](https://goreportcard.com/badge/github.com/vitanovs/versioner)](https://goreportcard.com/report/github.com/vitanovs/versioner)
+[![license](https://img.shields.io/badge/license-BSD%202--Clause-orange.svg)](https://github.com/vitanovs/versioner/blob/master/LICENSE)
 
-![versioner-logo](https://github.com/vitanovs/versioner/blob/master/doc/logo.png)
+![versioner-logo](https://github.com/vitanovs/versioner/blob/master/doc/images/logo.png)
 
 PostgreSQL schema versioning tool.
 
