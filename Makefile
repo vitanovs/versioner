@@ -22,7 +22,7 @@ LDFLAGS = -ldflags \
             -X ${VERSION_PACKAGE}.BuildMachine=${BUILD_MACHINE}"
 
 build:
-	go build -mod vendor ${LDFLAGS} -o ./bin/${BINARY_NAME} ${PACKAGE}
+	go build -mod vendor ${LDFLAGS} -o ./bin/${BINARY_NAME}
 
 release: build
 
@@ -38,6 +38,20 @@ install: build
 
 uninstall:
 	rm -rf ${GOPATH}/bin/${BINARY_NAME}
+
+darwin:
+	GOOS=darwin GOARCH=amd64 go build -mod vendor ${LDFLAGS} -o ./bin/${BINARY_NAME}
+	tar cvfz ${BINARY_NAME}-darwin-amd64-latest.tar.gz ./bin/${BINARY_NAME}
+
+linux:
+	GOOS=linux GOARCH=amd64 go build -mod vendor ${LDFLAGS} -o ./bin/${BINARY_NAME}
+	tar cvfz ${BINARY_NAME}-linux-amd64-latest.tar.gz ./bin/${BINARY_NAME}
+
+windows:
+	GOOS=windows GOARCH=amd64 go build -mod vendor ${LDFLAGS} -o ./bin/${BINARY_NAME}
+	tar cvfz ${BINARY_NAME}-windows-amd64-latest.tar.gz ./bin/${BINARY_NAME}
+
+pack: darwin linux windows
 
 format:
 	go fmt ./
