@@ -18,8 +18,8 @@ const (
 	databaseDriver = "postgres"
 )
 
-// ClientConfig defines the Client configuration.
-type ClientConfig struct {
+// Config defines the Client configuration.
+type Config struct {
 	Endpoint string
 	Port     int
 	Database string
@@ -30,13 +30,13 @@ type ClientConfig struct {
 
 // Client defines a database client.
 type Client struct {
-	config   *ClientConfig
+	config   *Config
 	database *sqlx.DB
 }
 
 // NewClient returns new storage client
 // from the provided parameters.
-func NewClient(ctx context.Context, config *ClientConfig) (*Client, error) {
+func NewClient(ctx context.Context, config *Config) (*Client, error) {
 	connStr := fmt.Sprintf("host=%s port=%d dbname=%s user=%s password=%s sslmode=%s",
 		config.Endpoint,
 		config.Port,
