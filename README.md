@@ -9,6 +9,8 @@ PostgreSQL schema versioning tool.
 
 * [Go](https://golang.org/) v1.13.0 at least.
 
+* [GNU Make](https://www.gnu.org/software/make/) v3.81 at least.
+
 * [Docker](https://www.docker.com) v19.03.4 at least.
 
 ## Installation
