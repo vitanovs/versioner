@@ -16,7 +16,7 @@ import (
 // used for applying migration definitions
 // on a remote database endpoint.
 func NewMigrationApplyCommand() cli.Command {
-	return cli.Command{
+	cmd := cli.Command{
 		Name:   "apply",
 		Usage:  "applies migrations on remote PostgreSQL endpoint",
 		Action: runMigrationApplyCommand,
@@ -32,6 +32,9 @@ func NewMigrationApplyCommand() cli.Command {
 			},
 		},
 	}
+
+	cmd.BashComplete = cli.DefaultCompleteWithFlags(&cmd)
+	return cmd
 }
 
 func runMigrationApplyCommand(ctx *cli.Context) error {

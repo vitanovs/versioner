@@ -63,7 +63,7 @@ const (
 // used for initializing the versioner on the
 // remote PostgreSQL endpoint.
 func NewMigrationInitCommand() cli.Command {
-	return cli.Command{
+	cmd := cli.Command{
 		Name:   "init",
 		Usage:  "initializes versioner tool schema",
 		Action: runMigrationInitCommand,
@@ -74,6 +74,9 @@ func NewMigrationInitCommand() cli.Command {
 			},
 		},
 	}
+
+	cmd.BashComplete = cli.DefaultCompleteWithFlags(&cmd)
+	return cmd
 }
 
 func runMigrationInitCommand(ctx *cli.Context) error {

@@ -8,7 +8,7 @@ import (
 // that is used as a parent for all migration
 // related commands supported in the tool.
 func NewMigrationCommand() cli.Command {
-	return cli.Command{
+	cmd := cli.Command{
 		Name:  "migration",
 		Usage: "schema migration commands",
 		Subcommands: []cli.Command{
@@ -16,4 +16,7 @@ func NewMigrationCommand() cli.Command {
 			NewMigrationApplyCommand(),
 		},
 	}
+
+	cmd.BashComplete = cli.DefaultCompleteWithFlags(&cmd)
+	return cmd
 }
