@@ -47,6 +47,26 @@ To print the menus of the sub commands use:
 versioner [options] <command> [options] <sub-command> --help
 ```
 
+## Autocompletion
+
+Enabling the autocompletion capabilities happens by exposing `PROG` environment variable and
+sourcing dedicated completion script, located in `autocompletion/` directory of the project.
+
+* BASH
+
+    ```sh
+    PROG=./bin/versioner source ./autocomplete/bash_autocomplete
+    ```
+
+* ZSH
+
+    ```sh
+    PROG=./bin/versioner _CLI_ZSH_AUTOCOMPLETE_HACK=1 source ./autocomplete/zsh_autocomplete
+    ```
+
+For more detailed overview of the autocompletion scripts see the [official documentation](https://github.com/urfave/cli/blob/master/docs/v2/manual.md#bash-completion).
+
+
 ## Docker
 
 The `versioner` tool can also be generated as a Docker image. To build image use
