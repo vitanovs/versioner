@@ -12,7 +12,7 @@ import (
 // NewDatabaseDropCommand returns a command
 // used for dropping databases on remote endpoint.
 func NewDatabaseDropCommand() cli.Command {
-	return cli.Command{
+	cmd := cli.Command{
 		Name:   "drop",
 		Usage:  "drops database on remote endpoint",
 		Action: runDatabaseDropCommand,
@@ -28,6 +28,9 @@ func NewDatabaseDropCommand() cli.Command {
 			},
 		},
 	}
+
+	cmd.BashComplete = cli.DefaultCompleteWithFlags(&cmd)
+	return cmd
 }
 
 func runDatabaseDropCommand(ctx *cli.Context) error {

@@ -12,7 +12,7 @@ import (
 // NewDatabaseCreateCommand returns a command
 // used for creating new databases on remote endpoint.
 func NewDatabaseCreateCommand() cli.Command {
-	return cli.Command{
+	cmd := cli.Command{
 		Name:   "create",
 		Usage:  "creates new database on remote endpoint",
 		Action: runDatabaseCreateCommand,
@@ -28,6 +28,9 @@ func NewDatabaseCreateCommand() cli.Command {
 			},
 		},
 	}
+
+	cmd.BashComplete = cli.DefaultCompleteWithFlags(&cmd)
+	return cmd
 }
 
 func runDatabaseCreateCommand(ctx *cli.Context) error {

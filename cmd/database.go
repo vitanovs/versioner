@@ -8,7 +8,7 @@ import (
 // that is used as a parent for all database
 // related commands supported in the tool.
 func NewDatabaseCommand() cli.Command {
-	return cli.Command{
+	cmd := cli.Command{
 		Name:  "database",
 		Usage: "database operations command",
 		Subcommands: []cli.Command{
@@ -16,4 +16,7 @@ func NewDatabaseCommand() cli.Command {
 			NewDatabaseDropCommand(),
 		},
 	}
+
+	cmd.BashComplete = cli.DefaultCompleteWithFlags(&cmd)
+	return cmd
 }
