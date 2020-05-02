@@ -70,5 +70,8 @@ func main() {
 		cmd.NewDatabaseCommand(),
 	}
 
+	app.EnableBashCompletion = true
+	app.BashComplete = cli.DefaultAppComplete
+
 	app.Run(os.Args)
 }
