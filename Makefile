@@ -21,7 +21,7 @@ LDFLAGS = -ldflags \
             -X ${VERSION_PACKAGE}.BuildUser=${BUILD_USER} \
             -X ${VERSION_PACKAGE}.BuildMachine=${BUILD_MACHINE}"
 
-build:
+build: mod
 	go build -mod vendor ${LDFLAGS} -o ./bin/${BINARY_NAME}
 
 release: build
